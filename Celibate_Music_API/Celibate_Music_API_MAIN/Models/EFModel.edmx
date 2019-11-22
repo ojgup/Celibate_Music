@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DADModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customer2177">
+          <Key>
+            <PropertyRef Name="CUSTOMERID" />
+          </Key>
+          <Property Name="CUSTOMERID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="ADDRESS" Type="nvarchar" MaxLength="100" />
+          <Property Name="POSTCODE" Type="int" />
+          <Property Name="INTERESTCODE" Type="nvarchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="Interest2177">
+          <Key>
+            <PropertyRef Name="INTERESTCODE" />
+          </Key>
+          <Property Name="INTERESTCODE" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Record2177">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="TITLE" Type="nvarchar" MaxLength="30" />
+          <Property Name="PERFORMER" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Sale2177">
+          <Key>
+            <PropertyRef Name="SALEDATE" />
+            <PropertyRef Name="CUSTOMERID" />
+            <PropertyRef Name="RECORDID" />
+          </Key>
+          <Property Name="SALEDATE" Type="date" Nullable="false" />
+          <Property Name="PRICE" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="CUSTOMERID" Type="int" Nullable="false" />
+          <Property Name="INTERESTCODE" Type="nvarchar" MaxLength="2" />
+          <Property Name="RECORDID" Type="nvarchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Customer2__INTER__40F9A68C">
+          <End Role="Interest2177" Type="Self.Interest2177" Multiplicity="0..1" />
+          <End Role="Customer2177" Type="Self.Customer2177" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Interest2177">
+              <PropertyRef Name="INTERESTCODE" />
+            </Principal>
+            <Dependent Role="Customer2177">
+              <PropertyRef Name="INTERESTCODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sale2177__CUSTOM__42E1EEFE">
+          <End Role="Customer2177" Type="Self.Customer2177" Multiplicity="1" />
+          <End Role="Sale2177" Type="Self.Sale2177" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer2177">
+              <PropertyRef Name="CUSTOMERID" />
+            </Principal>
+            <Dependent Role="Sale2177">
+              <PropertyRef Name="CUSTOMERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sale2177__RECORD__41EDCAC5">
+          <End Role="Record2177" Type="Self.Record2177" Multiplicity="1" />
+          <End Role="Sale2177" Type="Self.Sale2177" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Record2177">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sale2177">
+              <PropertyRef Name="RECORDID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DADModelStoreContainer">
+          <EntitySet Name="Customer2177" EntityType="Self.Customer2177" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Interest2177" EntityType="Self.Interest2177" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Record2177" EntityType="Self.Record2177" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sale2177" EntityType="Self.Sale2177" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Customer2__INTER__40F9A68C" Association="Self.FK__Customer2__INTER__40F9A68C">
+            <End Role="Interest2177" EntitySet="Interest2177" />
+            <End Role="Customer2177" EntitySet="Customer2177" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sale2177__CUSTOM__42E1EEFE" Association="Self.FK__Sale2177__CUSTOM__42E1EEFE">
+            <End Role="Customer2177" EntitySet="Customer2177" />
+            <End Role="Sale2177" EntitySet="Sale2177" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sale2177__RECORD__41EDCAC5" Association="Self.FK__Sale2177__RECORD__41EDCAC5">
+            <End Role="Record2177" EntitySet="Record2177" />
+            <End Role="Sale2177" EntitySet="Sale2177" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DADModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer2177">
+          <Key>
+            <PropertyRef Name="CUSTOMERID" />
+          </Key>
+          <Property Name="CUSTOMERID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADDRESS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POSTCODE" Type="Int32" />
+          <Property Name="INTERESTCODE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Interest2177" Relationship="Self.FK__Customer2__INTER__40F9A68C" FromRole="Customer2177" ToRole="Interest2177" />
+          <NavigationProperty Name="Sale2177" Relationship="Self.FK__Sale2177__CUSTOM__42E1EEFE" FromRole="Customer2177" ToRole="Sale2177" />
+        </EntityType>
+        <EntityType Name="Interest2177">
+          <Key>
+            <PropertyRef Name="INTERESTCODE" />
+          </Key>
+          <Property Name="INTERESTCODE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customer2177" Relationship="Self.FK__Customer2__INTER__40F9A68C" FromRole="Interest2177" ToRole="Customer2177" />
+        </EntityType>
+        <EntityType Name="Record2177">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TITLE" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="PERFORMER" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sale2177" Relationship="Self.FK__Sale2177__RECORD__41EDCAC5" FromRole="Record2177" ToRole="Sale2177" />
+        </EntityType>
+        <EntityType Name="Sale2177">
+          <Key>
+            <PropertyRef Name="SALEDATE" />
+            <PropertyRef Name="CUSTOMERID" />
+            <PropertyRef Name="RECORDID" />
+          </Key>
+          <Property Name="SALEDATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PRICE" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CUSTOMERID" Type="Int32" Nullable="false" />
+          <Property Name="INTERESTCODE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="RECORDID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Customer2177" Relationship="Self.FK__Sale2177__CUSTOM__42E1EEFE" FromRole="Sale2177" ToRole="Customer2177" />
+          <NavigationProperty Name="Record2177" Relationship="Self.FK__Sale2177__RECORD__41EDCAC5" FromRole="Sale2177" ToRole="Record2177" />
+        </EntityType>
+        <Association Name="FK__Customer2__INTER__40F9A68C">
+          <End Role="Interest2177" Type="Self.Interest2177" Multiplicity="0..1" />
+          <End Role="Customer2177" Type="Self.Customer2177" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Interest2177">
+              <PropertyRef Name="INTERESTCODE" />
+            </Principal>
+            <Dependent Role="Customer2177">
+              <PropertyRef Name="INTERESTCODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sale2177__CUSTOM__42E1EEFE">
+          <End Role="Customer2177" Type="Self.Customer2177" Multiplicity="1" />
+          <End Role="Sale2177" Type="Self.Sale2177" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer2177">
+              <PropertyRef Name="CUSTOMERID" />
+            </Principal>
+            <Dependent Role="Sale2177">
+              <PropertyRef Name="CUSTOMERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sale2177__RECORD__41EDCAC5">
+          <End Role="Record2177" Type="Self.Record2177" Multiplicity="1" />
+          <End Role="Sale2177" Type="Self.Sale2177" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Record2177">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sale2177">
+              <PropertyRef Name="RECORDID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DADEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customer2177" EntityType="Self.Customer2177" />
+          <EntitySet Name="Interest2177" EntityType="Self.Interest2177" />
+          <EntitySet Name="Record2177" EntityType="Self.Record2177" />
+          <EntitySet Name="Sale2177" EntityType="Self.Sale2177" />
+          <AssociationSet Name="FK__Customer2__INTER__40F9A68C" Association="Self.FK__Customer2__INTER__40F9A68C">
+            <End Role="Interest2177" EntitySet="Interest2177" />
+            <End Role="Customer2177" EntitySet="Customer2177" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sale2177__CUSTOM__42E1EEFE" Association="Self.FK__Sale2177__CUSTOM__42E1EEFE">
+            <End Role="Customer2177" EntitySet="Customer2177" />
+            <End Role="Sale2177" EntitySet="Sale2177" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sale2177__RECORD__41EDCAC5" Association="Self.FK__Sale2177__RECORD__41EDCAC5">
+            <End Role="Record2177" EntitySet="Record2177" />
+            <End Role="Sale2177" EntitySet="Sale2177" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DADModelStoreContainer" CdmEntityContainer="DADEntities2">
+          <EntitySetMapping Name="Customer2177">
+            <EntityTypeMapping TypeName="DADModel.Customer2177">
+              <MappingFragment StoreEntitySet="Customer2177">
+                <ScalarProperty Name="CUSTOMERID" ColumnName="CUSTOMERID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="POSTCODE" ColumnName="POSTCODE" />
+                <ScalarProperty Name="INTERESTCODE" ColumnName="INTERESTCODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Interest2177">
+            <EntityTypeMapping TypeName="DADModel.Interest2177">
+              <MappingFragment StoreEntitySet="Interest2177">
+                <ScalarProperty Name="INTERESTCODE" ColumnName="INTERESTCODE" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Record2177">
+            <EntityTypeMapping TypeName="DADModel.Record2177">
+              <MappingFragment StoreEntitySet="Record2177">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+                <ScalarProperty Name="PERFORMER" ColumnName="PERFORMER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sale2177">
+            <EntityTypeMapping TypeName="DADModel.Sale2177">
+              <MappingFragment StoreEntitySet="Sale2177">
+                <ScalarProperty Name="SALEDATE" ColumnName="SALEDATE" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="CUSTOMERID" ColumnName="CUSTOMERID" />
+                <ScalarProperty Name="INTERESTCODE" ColumnName="INTERESTCODE" />
+                <ScalarProperty Name="RECORDID" ColumnName="RECORDID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
